@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Home, LayoutGrid, Heart, User, ShoppingCart } from "lucide-react";
+import { Home, LayoutGrid, Heart, User, Package } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -10,7 +10,7 @@ const bottomNavItems = [
   { icon: LayoutGrid, label: "Categories", href: "/categories" },
   { icon: Heart, label: "Wishlist", href: "/wishlist" },
   { icon: User, label: "Account", href: "/account" },
-  { icon: ShoppingCart, label: "Cart", href: "/cart" },
+  { icon: Package, label: "Orders", href: "/orders" },
 ];
 
 export function MobileBottomNav() {
