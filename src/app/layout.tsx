@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Header } from "./(landing-page)/_components/header";
 import { Footer } from "./(landing-page)/_components/footer";
+import { MobileBottomNav } from "./(landing-page)/_components/MobileBottomNav";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
@@ -30,13 +31,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("font-sans", inter.variable)}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-background text-foreground pb-[70px] md:pb-0`}
       >
         <Header />
         <div className="flex-1 flex flex-col">
           {children}
         </div>
-        <Footer />
+        <div className="hidden md:block">
+          <Footer />
+        </div>
+        <MobileBottomNav />
       </body>
     </html>
   );

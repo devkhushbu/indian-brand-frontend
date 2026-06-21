@@ -1,21 +1,3 @@
-import { 
-  Shirt, 
-  Baby, 
-  Trophy, 
-  Car, 
-  Laptop, 
-  Smartphone, 
-  Heart, 
-  Sparkles, 
-  PartyPopper, 
-  Palette, 
-  Footprints, 
-  Activity, 
-  Snowflake, 
-  Backpack, 
-  ShoppingBag
-} from "lucide-react";
-
 export const searchFilters = [
   "Product Types",
   "Indianbrand",
@@ -38,19 +20,109 @@ export const mainNav = [
 ];
 
 export const allCategories = [
-  { title: "Women Clothing & Fashion", href: "/category/women-clothing-fashion", subtitle: "Dresses, tops & ethnic", icon: Sparkles },
-  { title: "Men Clothing & Fashion", href: "/category/men-clothing-fashion", subtitle: "Shirts, jeans & activewear", icon: Shirt },
-  { title: "Baby & Kids", href: "/category/baby-kids", subtitle: "Toys, clothing & care", icon: Baby },
-  { title: "Sports & Outdoor", href: "/category/sports-outdoor", subtitle: "Fitness gear & equipment", icon: Trophy },
-  { title: "Automobile & Motorcycle", href: "/category/automobile-motorcycle", subtitle: "Parts, helmets & tools", icon: Car },
-  { title: "Computer & Accessories", href: "/category/computer-accessories", subtitle: "Laptops, parts & networking", icon: Laptop },
-  { title: "Cellphones & Tabs", href: "/category/cellphones-tabs", subtitle: "Smartphones & accessories", icon: Smartphone },
-  { title: "Beauty, Health & Hair", href: "/category/beauty-health-hair", subtitle: "Makeup, skincare & wellness", icon: Heart },
-  { title: "Women Western & Maternity", href: "/category/women-western-maternity", subtitle: "Modern western wear", icon: ShoppingBag },
-  { title: "Party Dresses", href: "/category/party-dresses", subtitle: "Gowns & party outfits", icon: PartyPopper },
-  { title: "Ethnic Wear", href: "/category/ethnic-wear", subtitle: "Sarees, kurtas & suits", icon: Palette },
-  { title: "Footwear", href: "/category/footwear", subtitle: "Shoes, sandals & sneakers", icon: Footprints },
-  { title: "Sports Wear", href: "/category/sports-wear", subtitle: "Gym wear & tracksuits", icon: Activity },
-  { title: "Winter Wear", href: "/category/winter-wear", subtitle: "Jackets, sweaters & thermals", icon: Snowflake },
-  { title: "Bags & Accessories", href: "/category/bags-accessories", subtitle: "Handbags, belts & wallets", icon: Backpack },
+  {
+    title: "Fashion",
+    href: "/category/fashion",
+    subtitle: "Men, Women, Kids & Ethnic",
+    imgUrl: "/category-icon/Fashion.png",
+    subCategories: ["Men's Clothing", "Women's Clothing", "Kids Wear", "Ethnic Wear"]
+  },
+  {
+    title: "Electronics",
+    href: "/category/electronics",
+    subtitle: "Laptops, Accessories",
+    imgUrl: "/category-icon/Electronics.png",
+    subCategories: ["Laptops", "Desktops", "Cameras", "Gaming"]
+  },
+  {
+    title: "Smartphones",
+    href: "/category/smartphones",
+    subtitle: "Mobiles & Tablets",
+    imgUrl: "/category-icon/Smartphones.webp",
+    subCategories: ["Mobile Phones", "Smartphones", "Tablets", "Accessories"]
+  },
+  {
+    title: "Groceries",
+    href: "/category/grocery",
+    subtitle: "Fruits, Vegetables, Snacks",
+    imgUrl: "/category-icon/Groceries.png",
+    subCategories: ["Fruits", "Vegetables", "Snacks", "Beverages"]
+  },
+  {
+    title: "Home & Kitchen",
+    href: "/category/home-kitchen",
+    subtitle: "Cookware, Storage, Dining",
+    imgUrl: "/category-icon/Home.webp",
+    subCategories: ["Cookware", "Kitchen Tools", "Dining Sets"]
+  },
+  {
+    title: "Beauty & Personal Care",
+    href: "/category/beauty",
+    subtitle: "Makeup, Skincare, Haircare",
+    imgUrl: "/category-icon/Beauty.png",
+    subCategories: ["Makeup", "Skincare", "Haircare", "Fragrances"]
+  },
+  {
+    title: "Jewelry",
+    href: "/category/jewelry",
+    subtitle: "Necklaces, Rings, Earrings",
+    imgUrl: "/category-icon/Jwellery.png",
+    subCategories: ["Necklaces", "Rings", "Earrings", "Bracelets"]
+  },
+  {
+    title: "Furniture",
+    href: "/category/furniture",
+    subtitle: "Sofa, Beds, Chairs, Tables",
+    imgUrl: "/category-icon/Furniture.png",
+    subCategories: ["Sofa", "Beds", "Chairs", "Tables"]
+  },
+  {
+    title: "Kids & Toys",
+    href: "/category/kids-toys",
+    subtitle: "Educational Toys, Board Games",
+    imgUrl: "/category-icon/kids-and-toys.webp",
+    subCategories: ["Educational Toys", "Action Figures", "Board Games"]
+  },
+  {
+    title: "Books",
+    href: "/category/books",
+    subtitle: "Books, Notebooks, Pens",
+    imgUrl: "/category-icon/book.png",
+    subCategories: ["Books", "Notebooks", "Pens", "Office Supplies"]
+  },
+  {
+    title: "Bags & Luggage",
+    href: "/category/bags",
+    subtitle: "Backpacks, Handbags, Wallets",
+    imgUrl: "/category-icon/Bags.png",
+    subCategories: ["Backpacks", "Handbags", "Wallets", "Travel Bags"]
+  },
+  {
+    title: "Gifts",
+    href: "/category/gifts",
+    subtitle: "Special Occasions, Corporate",
+    imgUrl: "/category-icon/Gifts.png",
+    subCategories: ["Special Occasions", "Corporate Gifts", "Personalized"]
+  },
+  {
+    title: "Kurtis & Dress",
+    href: "/category/kurtis",
+    subtitle: "Ethnic Wear, Traditional",
+    imgUrl: "/category-icon/kurti-and-dress-materials-icon.webp",
+    subCategories: ["Kurtis", "Dress Materials", "Sarees"]
+  },
+  {
+    title: "Wedding",
+    href: "/category/wedding-accessories",
+    subtitle: "Bridal, Groom, Decor",
+    imgUrl: "/category-icon/Wedding Accessories.png",
+    subCategories: ["Bridal Accessories", "Groom Accessories", "Wedding Decor"]
+  },
+  {
+    title: "Top Brands",
+    href: "/category/top-brands",
+    subtitle: "Exclusive Collections",
+    imgUrl: "/category-icon/Top Brands.webp",
+    subCategories: ["Premium Brands", "Exclusive Collections"]
+  }
 ];
