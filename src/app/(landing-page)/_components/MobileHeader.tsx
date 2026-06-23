@@ -8,7 +8,9 @@ import { allCategories } from "@/app/(landing-page)/_components/nav-data";
 
 export function MobileHeader() {
   return (
-    <div className="md:hidden flex flex-col w-full font-sans bg-gradient-to-b from-orange-100/80 via-orange-50/30 to-background pb-2">
+    <div className="md:hidden flex flex-col w-full font-sans relative pb-2 z-10">
+      {/* Animated Background with exact opacity fade mask to match original gradient fade */}
+      <div className="absolute inset-0 bg-animated-gradient z-[-1] [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.3)_50%,transparent_100%)] -webkit-mask-image-[linear-gradient(to_bottom,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.3)_50%,transparent_100%)] pointer-events-none"></div>
       {/* App Download Banner */}
       <div className="flex items-center justify-between px-3 py-2 bg-transparent">
         <div className="flex items-center space-x-3">
@@ -88,18 +90,34 @@ export function MobileHeader() {
       <div className="flex overflow-x-auto hide-scrollbar px-4 pb-2 space-x-4 bg-transparent">
         {/* All Categories - Always First */}
         <div className="flex flex-col items-center shrink-0 group cursor-pointer">
-          <div className="relative w-[56px] h-[56px] rounded-full bg-primary/10 flex items-center justify-center mb-1 overflow-hidden group-hover:bg-primary/20 transition-colors">
-             <Image src="/category-icon/all-category-icon.webp" alt="All Categories" fill className="object-cover" unoptimized />
+          <div className="relative w-[56px] h-[56px] rounded-full overflow-hidden flex items-center justify-center mb-1 group-hover:scale-105 transition-transform duration-300 bg-pink-50/80 dark:bg-pink-950/40 backdrop-blur-sm">
+            {/* Soft Glowing Orbs */}
+            <div className={`absolute top-0 right-0 w-8 h-8 rounded-full blur-[8px] -mr-2 -mt-2 bg-pink-300/40 dark:bg-pink-500/20 mix-blend-multiply dark:mix-blend-screen pointer-events-none z-0`} />
+            <div className={`absolute bottom-0 left-0 w-6 h-6 rounded-full blur-[6px] -ml-1 -mb-1 bg-pink-300/40 dark:bg-pink-500/20 mix-blend-multiply dark:mix-blend-screen opacity-70 pointer-events-none z-0`} />
+            
+            <div className="relative w-[85%] h-[85%] z-10">
+              <Image src="/category-icon/all-category-icon.webp" alt="All Categories" fill className="object-contain" unoptimized />
+            </div>
           </div>
           <span className="text-[10px] text-center font-medium text-foreground w-[56px] leading-tight line-clamp-2 group-hover:text-primary transition-colors">
             All Categories
           </span>
         </div>
 
-        {allCategories.slice(0, 8).map((cat, index) => (
-          <Link href={cat.href} key={index} className="flex flex-col items-center shrink-0 group">
-            <div className="relative w-[56px] h-[56px] rounded-full bg-primary/10 flex items-center justify-center mb-1 overflow-hidden group-hover:bg-primary/20 transition-colors">
-               {cat.imgUrl && <Image src={cat.imgUrl} alt={cat.title} fill className="object-cover" unoptimized />}
+        {allCategories.map((cat, index) => (
+          <Link href={cat.href} key={index} className="flex flex-col items-center shrink-0 group cursor-pointer">
+            <div className={`relative w-[56px] h-[56px] rounded-full overflow-hidden flex items-center justify-center mb-1 group-hover:scale-105 transition-transform duration-300 backdrop-blur-sm ${cat.bgColor || 'bg-primary/10'}`}>
+               {/* Soft Glowing Orbs */}
+               {cat.glowOrb && (
+                 <>
+                   <div className={`absolute top-0 right-0 w-8 h-8 rounded-full blur-[8px] -mr-2 -mt-2 ${cat.glowOrb} mix-blend-multiply dark:mix-blend-screen pointer-events-none z-0`} />
+                   <div className={`absolute bottom-0 left-0 w-6 h-6 rounded-full blur-[6px] -ml-1 -mb-1 ${cat.glowOrb} mix-blend-multiply dark:mix-blend-screen opacity-70 pointer-events-none z-0`} />
+                 </>
+               )}
+               
+               <div className="relative w-[85%] h-[85%] z-10">
+                 {cat.imgUrl && <Image src={cat.imgUrl} alt={cat.title} fill className="object-contain" unoptimized />}
+               </div>
             </div>
             <span className="text-[10px] text-center font-medium text-foreground w-[56px] leading-tight line-clamp-2 group-hover:text-primary transition-colors">
               {cat.title}

@@ -64,7 +64,7 @@ function BentoCarousel({ images, priority = false, setApi }: { images: string[],
   );
 }
 
-export function HeroSection() {
+export function HomeBanner() {
   const [api1, setApi1] = useState<EmblaApiType>();
   const [api2, setApi2] = useState<EmblaApiType>();
   const [api3, setApi3] = useState<EmblaApiType>();
@@ -88,16 +88,16 @@ export function HeroSection() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4">
         
         {/* Main Carousel (Takes up 2/3 on Desktop) */}
-        <div className="lg:col-span-2 relative rounded-xl md:rounded-2xl overflow-hidden bg-muted/20 h-[180px] sm:h-[280px] lg:h-[420px] cursor-pointer shadow-sm">
+        <div className="lg:col-span-2 relative rounded-xl md:rounded-2xl overflow-hidden bg-muted/20 h-[180px] sm:h-[280px] lg:h-[420px] cursor-pointer">
            <BentoCarousel images={mainSliderImages} priority={true} setApi={setApi1} />
         </div>
 
         {/* Right Side Stacked Banners (Takes up 1/3 on Desktop) */}
         <div className="grid grid-cols-2 lg:grid-cols-1 lg:grid-rows-2 gap-3 md:gap-4 h-[120px] sm:h-[180px] lg:h-[420px]">
-          <div className="relative rounded-xl md:rounded-2xl overflow-hidden bg-muted/20 h-full cursor-pointer shadow-sm">
+          <div className="relative rounded-xl md:rounded-2xl overflow-hidden bg-muted/20 h-full cursor-pointer">
              <BentoCarousel images={topSideImages} setApi={setApi2} />
           </div>
-          <div className="relative rounded-xl md:rounded-2xl overflow-hidden bg-muted/20 h-full cursor-pointer shadow-sm">
+          <div className="relative rounded-xl md:rounded-2xl overflow-hidden bg-muted/20 h-full cursor-pointer">
              <BentoCarousel images={bottomSideImages} setApi={setApi3} />
           </div>
         </div>

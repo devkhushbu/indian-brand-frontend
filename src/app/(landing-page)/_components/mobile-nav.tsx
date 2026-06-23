@@ -19,21 +19,21 @@ export function MobileNav() {
 
   // Dummy subcategories for right pane's "Popular" tab
   const popularFeatured = [
-    { title: "Smartphones", imgUrl: "/category-icon/Smartphones.webp" },
-    { title: "Top Brands", imgUrl: "/category-icon/Top Brands.webp" },
-    { title: "Wedding Accessories", imgUrl: "/category-icon/Wedding Accessories.png" },
+    { title: "Smartphones", imgUrl: "/category-icon/Smartphones.png", bgColor: "bg-gray-100/80 dark:bg-gray-800/50", glowOrb: "bg-gray-300/40 dark:bg-gray-500/20" },
+    { title: "Top Brands", imgUrl: "/category-icon/Top_Brands.png", bgColor: "bg-slate-50/80 dark:bg-slate-900/40", glowOrb: "bg-slate-300/40 dark:bg-slate-500/20" },
+    { title: "Wedding Accessories", imgUrl: "/category-icon/Wedding Accessories.png", bgColor: "bg-pink-50/80 dark:bg-pink-950/40", glowOrb: "bg-pink-300/40 dark:bg-pink-500/20" },
   ];
 
   const popularAll = [
-    { title: "Fashion", imgUrl: "/category-icon/Fashion.png" },
-    { title: "Kids & Toys", imgUrl: "/category-icon/kids-and-toys.webp" },
-    { title: "Electronics", imgUrl: "/category-icon/Electronics.png" },
-    { title: "Home & Kitchen", imgUrl: "/category-icon/Home.webp" },
-    { title: "Bags", imgUrl: "/category-icon/Bags.png" },
-    { title: "Beauty", imgUrl: "/category-icon/Beauty.png" },
-    { title: "Grocery", imgUrl: "/category-icon/Groceries.png" },
-    { title: "Jewelry", imgUrl: "/category-icon/Jwellery.png" },
-    { title: "Furniture", imgUrl: "/category-icon/Furniture.png" },
+    { title: "Fashion", imgUrl: "/category-icon/Fashion.png", bgColor: "bg-orange-50/80 dark:bg-orange-950/40", glowOrb: "bg-orange-300/40 dark:bg-orange-500/20" },
+    { title: "Kids & Toys", imgUrl: "/category-icon/kids-and-toys.png", bgColor: "bg-indigo-50/80 dark:bg-indigo-950/40", glowOrb: "bg-indigo-300/40 dark:bg-indigo-500/20" },
+    { title: "Electronics", imgUrl: "/category-icon/Electronics.png", bgColor: "bg-blue-50/80 dark:bg-blue-950/40", glowOrb: "bg-blue-300/40 dark:bg-blue-500/20" },
+    { title: "Home & Kitchen", imgUrl: "/category-icon/Home.png", bgColor: "bg-cyan-50/80 dark:bg-cyan-950/40", glowOrb: "bg-cyan-300/40 dark:bg-cyan-500/20" },
+    { title: "Bags", imgUrl: "/category-icon/Bags.png", bgColor: "bg-rose-50/80 dark:bg-rose-950/40", glowOrb: "bg-rose-300/40 dark:bg-rose-500/20" },
+    { title: "Beauty", imgUrl: "/category-icon/Beauty.png", bgColor: "bg-green-50/80 dark:bg-green-950/40", glowOrb: "bg-green-300/40 dark:bg-green-500/20" },
+    { title: "Grocery", imgUrl: "/category-icon/Groceries.png", bgColor: "bg-amber-50/80 dark:bg-amber-950/40", glowOrb: "bg-amber-300/40 dark:bg-amber-500/20" },
+    { title: "Jewelry", imgUrl: "/category-icon/Jwellery.png", bgColor: "bg-yellow-50/80 dark:bg-yellow-950/40", glowOrb: "bg-yellow-300/40 dark:bg-yellow-500/20" },
+    { title: "Furniture", imgUrl: "/category-icon/Furniture.png", bgColor: "bg-stone-50/80 dark:bg-stone-900/40", glowOrb: "bg-stone-300/40 dark:bg-stone-500/20" },
   ];
 
   const activeCategory = allCategories.find((c) => c.title === activeTab);
@@ -86,10 +86,18 @@ export function MobileNav() {
               {activeTab === "Popular" && (
                 <motion.div layoutId="active-indicator" className="absolute left-0 top-0 bottom-0 w-1 bg-primary" />
               )}
-              <div className={`relative w-[42px] h-[42px] rounded-full flex items-center justify-center mb-1.5 overflow-hidden ${
-                activeTab === "Popular" ? "bg-primary/10" : "bg-background border border-border/50"
+              <div className={`relative w-[42px] h-[42px] rounded-full flex items-center justify-center mb-1.5 overflow-hidden transition-all duration-300 ${
+                activeTab === "Popular" ? "bg-slate-50/80 dark:bg-slate-900/40" : "bg-background border border-border/50 opacity-80"
               }`}>
-                <Image src="/category-icon/Top Brands.webp" alt="Popular" fill className="object-cover" unoptimized />
+                {activeTab === "Popular" && (
+                  <>
+                    <div className={`absolute top-0 right-0 w-6 h-6 rounded-full blur-[6px] -mr-1 -mt-1 bg-slate-300/40 dark:bg-slate-500/20 mix-blend-multiply dark:mix-blend-screen pointer-events-none z-0`} />
+                    <div className={`absolute bottom-0 left-0 w-4 h-4 rounded-full blur-[4px] -ml-0.5 -mb-0.5 bg-slate-300/40 dark:bg-slate-500/20 mix-blend-multiply dark:mix-blend-screen opacity-70 pointer-events-none z-0`} />
+                  </>
+                )}
+                <div className="relative w-[80%] h-[80%] z-10">
+                  <Image src="/category-icon/Top_Brands.png" alt="Popular" fill className="object-contain" unoptimized />
+                </div>
               </div>
               <span className={`text-[10px] text-center leading-tight ${
                 activeTab === "Popular" ? "text-primary font-semibold" : "text-muted-foreground font-medium"
@@ -112,10 +120,18 @@ export function MobileNav() {
                   {isActive && (
                     <motion.div layoutId="active-indicator" className="absolute left-0 top-0 bottom-0 w-1 bg-primary" />
                   )}
-                  <div className={`relative w-[42px] h-[42px] rounded-full flex items-center justify-center mb-1.5 overflow-hidden ${
-                    isActive ? "bg-primary/10" : "bg-background border border-border/50"
+                  <div className={`relative w-[42px] h-[42px] rounded-full flex items-center justify-center mb-1.5 overflow-hidden transition-all duration-300 ${
+                    isActive ? (tab.bgColor || "bg-primary/10") : "bg-background border border-border/50 opacity-80"
                   }`}>
-                    <Image src={tab.imgUrl} alt={tab.title} fill className="object-cover" unoptimized />
+                    {isActive && tab.glowOrb && (
+                      <>
+                        <div className={`absolute top-0 right-0 w-6 h-6 rounded-full blur-[6px] -mr-1 -mt-1 ${tab.glowOrb} mix-blend-multiply dark:mix-blend-screen pointer-events-none z-0`} />
+                        <div className={`absolute bottom-0 left-0 w-4 h-4 rounded-full blur-[4px] -ml-0.5 -mb-0.5 ${tab.glowOrb} mix-blend-multiply dark:mix-blend-screen opacity-70 pointer-events-none z-0`} />
+                      </>
+                    )}
+                    <div className="relative w-[80%] h-[80%] z-10">
+                      <Image src={tab.imgUrl} alt={tab.title} fill className="object-contain" unoptimized />
+                    </div>
                   </div>
                   <span className={`text-[10px] text-center leading-tight break-words px-0.5 ${
                     isActive ? "text-primary font-semibold" : "text-muted-foreground font-medium"
@@ -157,8 +173,16 @@ export function MobileNav() {
                             transition={{ delay: idx * 0.05 }}
                           >
                             <Link href="#" onClick={() => setOpen(false)} className="flex flex-col items-center group">
-                              <div className="w-[68px] h-[68px] rounded-full border border-border flex items-center justify-center mb-1.5 group-hover:border-primary/50 transition-colors overflow-hidden">
-                                <Image src={item.imgUrl} alt={item.title} width={48} height={48} className="object-cover rounded-full" unoptimized />
+                              <div className={`relative w-[68px] h-[68px] rounded-full flex items-center justify-center mb-1.5 group-hover:scale-105 transition-all duration-300 overflow-hidden ${item.bgColor || 'bg-muted'}`}>
+                                {item.glowOrb && (
+                                  <>
+                                    <div className={`absolute top-0 right-0 w-8 h-8 rounded-full blur-[8px] -mr-2 -mt-2 ${item.glowOrb} mix-blend-multiply dark:mix-blend-screen pointer-events-none z-0`} />
+                                    <div className={`absolute bottom-0 left-0 w-6 h-6 rounded-full blur-[6px] -ml-1 -mb-1 ${item.glowOrb} mix-blend-multiply dark:mix-blend-screen opacity-70 pointer-events-none z-0`} />
+                                  </>
+                                )}
+                                <div className="relative w-[75%] h-[75%] z-10">
+                                  <Image src={item.imgUrl} alt={item.title} fill className="object-contain" unoptimized />
+                                </div>
                               </div>
                               <span className="text-[10px] text-center font-medium text-foreground/80 leading-tight">
                                 {item.title}
@@ -180,8 +204,16 @@ export function MobileNav() {
                             transition={{ delay: 0.1 + idx * 0.03 }}
                           >
                             <Link href="#" onClick={() => setOpen(false)} className="flex flex-col items-center group">
-                              <div className="relative w-12 h-12 flex items-center justify-center mb-1 overflow-hidden">
-                                <Image src={item.imgUrl} alt={item.title} fill className="object-cover rounded-md" unoptimized />
+                              <div className={`relative w-[60px] h-[60px] rounded-full flex items-center justify-center mb-1.5 group-hover:scale-105 transition-all duration-300 overflow-hidden ${item.bgColor || 'bg-muted'}`}>
+                                {item.glowOrb && (
+                                  <>
+                                    <div className={`absolute top-0 right-0 w-6 h-6 rounded-full blur-[6px] -mr-1 -mt-1 ${item.glowOrb} mix-blend-multiply dark:mix-blend-screen pointer-events-none z-0`} />
+                                    <div className={`absolute bottom-0 left-0 w-4 h-4 rounded-full blur-[4px] -ml-1 -mb-1 ${item.glowOrb} mix-blend-multiply dark:mix-blend-screen opacity-70 pointer-events-none z-0`} />
+                                  </>
+                                )}
+                                <div className="relative w-[75%] h-[75%] z-10">
+                                  <Image src={item.imgUrl} alt={item.title} fill className="object-contain" unoptimized />
+                                </div>
                               </div>
                               <span className="text-[10px] text-center font-medium text-foreground/80 leading-tight">
                                 {item.title}

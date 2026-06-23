@@ -1,0 +1,135 @@
+export interface Product {
+  id: string;
+  title: string;
+  shortDescription?: string;
+  image: string;
+  hoverImage?: string;
+  inStock: boolean;
+  rating: number;
+  originalPrice: number;
+  discountedPrice: number;
+}
+
+export const popularProducts: Product[] = [
+  {
+    id: "1",
+    title: "Apple Touch Watch Series 9",
+    shortDescription: "Advanced health features with a sleek design.",
+    image: "/product/aplle-touch-watch-1.jpg",
+    hoverImage: "/product/aplle-touch-watch-2.jpg",
+    inStock: true,
+    rating: 5,
+    originalPrice: 450,
+    discountedPrice: 399,
+  },
+  {
+    id: "2",
+    title: "Premium Leather Handbag",
+    shortDescription: "Elegant and spacious bag for everyday use.",
+    image: "/product/bag-1.jpg",
+    hoverImage: "/product/bag-2.jpg",
+    inStock: true,
+    rating: 4,
+    originalPrice: 120,
+    discountedPrice: 89,
+  },
+  {
+    id: "3",
+    title: "Modern Upholstered Chair",
+    shortDescription: "Comfortable seating with a mid-century modern look.",
+    image: "/product/chair1.jpg",
+    hoverImage: "/product/chair2.jpg",
+    inStock: true,
+    rating: 5,
+    originalPrice: 250,
+    discountedPrice: 199,
+  },
+  {
+    id: "4",
+    title: "Noise Cancelling Headphones",
+    shortDescription: "Immersive audio experience with active noise cancellation.",
+    image: "/product/headphone-1.jpg",
+    hoverImage: "/product/headphone-2.jpg",
+    inStock: true,
+    rating: 4,
+    originalPrice: 180,
+    discountedPrice: 149,
+  },
+  {
+    id: "5",
+    title: "Apple iPhone 16 Pro Max",
+    shortDescription: "The ultimate iPhone with a titanium design and pro camera.",
+    image: "/product/iphone16-1.png",
+    hoverImage: "/product/iphone16-2.png",
+    inStock: true,
+    rating: 5,
+    originalPrice: 1199,
+    discountedPrice: 1099,
+  },
+  {
+    id: "6",
+    title: "Minimalist Ceiling Light",
+    shortDescription: "Brighten up your room with this elegant ceiling fixture.",
+    image: "/product/light-ceiling-1.jpg",
+    hoverImage: "/product/light-ceiling-2.jpg",
+    inStock: true,
+    rating: 4,
+    originalPrice: 85,
+    discountedPrice: 65,
+  },
+  {
+    id: "7",
+    title: "Wireless Laser Printer",
+    shortDescription: "Fast, reliable printing for your home or office.",
+    image: "/product/printer-1.jpg",
+    hoverImage: "/product/printer-2.jpg",
+    inStock: true,
+    rating: 4,
+    originalPrice: 220,
+    discountedPrice: 175,
+  },
+  {
+    id: "8",
+    title: "Smart Robot Mop & Vacuum",
+    shortDescription: "Automated cleaning for spotless floors every day.",
+    image: "/product/robot-mop-smart -1.jpg",
+    hoverImage: "/product/robot-mop-smart -2.jpg",
+    inStock: true,
+    rating: 5,
+    originalPrice: 350,
+    discountedPrice: 299,
+  },
+  {
+    id: "9",
+    title: "Casual Sneakers",
+    shortDescription: "Comfortable and stylish shoes for daily wear.",
+    image: "/product/shoes1.jpg",
+    hoverImage: "/product/shoes2.jpg",
+    inStock: true,
+    rating: 4,
+    originalPrice: 90,
+    discountedPrice: 69,
+  },
+  {
+    id: "10",
+    title: "Front Load Washing Machine",
+    shortDescription: "Energy-efficient washing with multiple care programs.",
+    image: "/product/washing-machine-1.jpg",
+    hoverImage: "/product/washing-machine-2.jpg",
+    inStock: true,
+    rating: 5,
+    originalPrice: 600,
+    discountedPrice: 499,
+  },
+  {
+    id: "11",
+    title: "Classic Analog Watch",
+    shortDescription: "Timeless design with premium leather strap.",
+    image: "/product/watch-1.jpg",
+    hoverImage: "/product/watch-2.jpg",
+    inStock: true,
+    rating: 4,
+    originalPrice: 150,
+    discountedPrice: 110,
+  }
+];

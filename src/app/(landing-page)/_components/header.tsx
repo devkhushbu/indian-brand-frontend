@@ -36,7 +36,9 @@ export function Header() {
   const [activeMegaCategory, setActiveMegaCategory] = useState(allCategories[0]);
 
   return (
-    <header className="w-full flex flex-col font-sans bg-gradient-to-b from-orange-100/80 via-orange-50/30 to-background">
+    <header className="w-full flex flex-col font-sans relative z-10">
+      {/* Animated Background with exact opacity fade mask to match original gradient fade */}
+      <div className="absolute inset-0 bg-animated-gradient z-[-1] [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.3)_50%,transparent_100%)] -webkit-mask-image-[linear-gradient(to_bottom,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.3)_50%,transparent_100%)] pointer-events-none"></div>
       <MobileHeader />
       {/* Top Bar */}
       <div className="hidden md:flex justify-between items-center px-4 py-2 bg-transparent text-xs text-muted-foreground border-b border-border/50">
@@ -160,8 +162,18 @@ export function Header() {
                             : "border-transparent hover:bg-muted"
                         }`}
                       >
-                        <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 border border-border">
-                          <Image src={cat.imgUrl} alt={cat.title} fill className="object-cover" unoptimized />
+                        <div className={`relative w-8 h-8 rounded-full overflow-hidden shrink-0 transition-colors duration-300 ${
+                          activeMegaCategory.title === cat.title ? (cat.bgColor || "bg-primary/10") : "bg-transparent border border-border"
+                        }`}>
+                          {activeMegaCategory.title === cat.title && cat.glowOrb && (
+                            <>
+                              <div className={`absolute top-0 right-0 w-6 h-6 rounded-full blur-[6px] -mr-1 -mt-1 ${cat.glowOrb} mix-blend-multiply dark:mix-blend-screen pointer-events-none z-0`} />
+                              <div className={`absolute bottom-0 left-0 w-4 h-4 rounded-full blur-[4px] -ml-0.5 -mb-0.5 ${cat.glowOrb} mix-blend-multiply dark:mix-blend-screen opacity-70 pointer-events-none z-0`} />
+                            </>
+                          )}
+                          <div className="relative w-[80%] h-[80%] z-10 m-[10%]">
+                            <Image src={cat.imgUrl} alt={cat.title} fill className="object-contain" unoptimized />
+                          </div>
                         </div>
                         <div className="flex flex-col pr-2">
                           <span className={`text-[13px] font-bold leading-tight ${activeMegaCategory.title === cat.title ? 'text-primary' : 'text-foreground'}`}>
