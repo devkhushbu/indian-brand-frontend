@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { useTouchHover } from "@/hooks/use-touch-hover";
+import { ShoppingBag, Eye, Heart, GitCompare, Check } from "lucide-react";
 
 interface ProductCardProps {
   image: string;
@@ -19,7 +20,6 @@ export const ProductCard = ({
   image, 
   hoverImage,
   title, 
-  shortDescription,
   // inStock, 
   rating, 
   originalPrice, 
@@ -29,30 +29,43 @@ export const ProductCard = ({
   const { isHovered, ref: cardRef, hoverProps } = useTouchHover<HTMLDivElement>();
   const discount = originalPrice > discountedPrice ? Math.round(((originalPrice - discountedPrice) / originalPrice) * 100) : 0;
 
+  // Generate dummy sold metrics for visual completeness matching the screenshot
+  const soldCount = Math.max(1, Math.round((discountedPrice * 7) % 8) + 1); // between 1 and 8
+  const totalStock = 10;
+  const soldPercentage = (soldCount / totalStock) * 100;
+
   return (
     <div 
       ref={cardRef}
       {...hoverProps}
-      className={`group relative flex flex-col gap-2 p-1.5 bg-transparent border rounded-2xl transition-all duration-300 w-[200px] md:w-[260px] shrink-0 snap-center cursor-pointer ${isHovered ? 'border-primary shadow-sm' : 'border-transparent'}`}
+      className="group relative flex flex-col gap-1.5 p-3 pb-2.5 bg-transparent hover:bg-white dark:hover:bg-zinc-900/40 rounded-xl transition-all duration-300 w-[200px] md:w-[220px] shrink-0 snap-center cursor-pointer hover:shadow-[0_8px_32px_rgba(0,0,0,0.03)] hover:-translate-y-1 select-none border-none"
     >
-      {/* Separator Line that hides on hover */}
-      <div className={`absolute -right-0 top-4 bottom-4 w-px bg-border transition-opacity duration-300 pointer-events-none z-0 ${isHovered ? 'opacity-0' : 'opacity-100'}`} />
-
       {/* Image Container */}
-      <div className={`relative w-full aspect-[4/3] rounded-lg p-0 flex items-center justify-center overflow-hidden transition-colors duration-300 z-10 ${isHovered ? 'bg-secondary' : 'bg-background'}`}>
+      <div className={`relative w-full aspect-square rounded-lg flex items-center justify-center overflow-hidden transition-colors duration-300 z-10 ${isHovered ? 'bg-[#f5f5f5] dark:bg-zinc-900' : 'bg-transparent'}`}>
+        
+        {/* Badges - Left and Right opposite alignment */}
         {discount > 0 && (
-          <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-[11px] font-semibold px-2 py-0.5 rounded z-10">
-            -{discount}%
-          </span>
+          <div className="absolute top-1.5 left-1.5 z-10 select-none">
+            <span className="bg-[#fc3b00] text-white text-[9.5px] font-extrabold px-2 py-0.5 rounded-sm tracking-wider uppercase">
+              -{discount}%
+            </span>
+          </div>
+        )}
+        {rating >= 4.5 && (
+          <div className="absolute top-1.5 right-1.5 z-10 select-none">
+            <span className="bg-[#008a6c] text-white text-[9.5px] font-extrabold px-2 py-0.5 rounded-sm tracking-wider uppercase">
+              New
+            </span>
+          </div>
         )}
         
-        <div className="relative w-full h-full flex items-center justify-center">
+        <div className="relative w-[90%] h-[90%] flex items-center justify-center">
           <Image 
             src={image} 
             alt={title} 
             fill
             unoptimized
-            className={`object-contain mix-blend-multiply transition-all duration-500 ${isHovered ? 'scale-105' : 'scale-100'} ${hoverImage && isHovered ? 'opacity-0' : 'opacity-100'}`} 
+            className={`object-contain mix-blend-multiply dark:mix-blend-normal transition-all duration-500 ${isHovered ? 'scale-105' : 'scale-100'} ${hoverImage && isHovered ? 'opacity-0' : 'opacity-100'}`} 
           />
           {hoverImage && (
             <Image 
@@ -60,85 +73,107 @@ export const ProductCard = ({
               alt={`${title} hover`} 
               fill
               unoptimized
-              className={`object-contain mix-blend-multiply transition-all duration-500 ${isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}`} 
+              className={`object-contain mix-blend-multiply dark:mix-blend-normal transition-all duration-500 ${isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}`} 
             />
           )}
         </div>
 
-        {/* Hover Actions */}
-        <div className={`absolute right-2 top-2 flex flex-col gap-1.5 md:gap-2 transition-all duration-300 z-20 ${isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`}>
-          <button className="bg-background/90 backdrop-blur-md p-1.5 md:p-2.5 rounded-lg md:rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] text-muted-foreground hover:text-primary hover:bg-background hover:scale-110 transition-all duration-300" title="Wishlist">
-            <svg className="w-3.5 h-3.5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-            </svg>
+        {/* Hover Actions Overlay with Staggered Slide-up Animations (Glassy Style Bottom-Centered) */}
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center justify-center gap-1.5 z-20">
+          {/* Add to Cart button (White Circle by default, turns Yellow on hover) */}
+          <button 
+            className={`bg-white/95 dark:bg-zinc-900/95 text-gray-600 dark:text-zinc-300 hover:bg-[#fcb800] hover:text-white h-7.5 w-7.5 rounded-full flex items-center justify-center border border-white/20 dark:border-zinc-800/40 shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-all duration-300 cursor-pointer outline-none ${
+              isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-3 scale-75 pointer-events-none'
+            }`} 
+            title="Add to Cart"
+          >
+            <ShoppingBag className="w-3.5 h-3.5 stroke-[2.25]" />
           </button>
-          <button className="bg-background/90 backdrop-blur-md p-1.5 md:p-2.5 rounded-lg md:rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] text-muted-foreground hover:text-primary hover:bg-background hover:scale-110 transition-all duration-300" title="Compare">
-            <svg className="w-3.5 h-3.5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
-            </svg>
+          
+          {/* Quick View (Eye) */}
+          <button 
+            className={`bg-white/95 dark:bg-zinc-900/95 text-gray-600 dark:text-zinc-300 hover:bg-[#fcb800] hover:text-white h-7.5 w-7.5 rounded-full flex items-center justify-center border border-white/20 dark:border-zinc-800/40 shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-all duration-300 delay-[40ms] cursor-pointer outline-none ${
+              isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-3 scale-75 pointer-events-none'
+            }`} 
+            title="Quick View"
+          >
+            <Eye className="w-3.5 h-3.5" />
           </button>
-          <button className="bg-background/90 backdrop-blur-md p-1.5 md:p-2.5 rounded-lg md:rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] text-muted-foreground hover:text-primary hover:bg-background hover:scale-110 transition-all duration-300" title="Quick View">
-            <svg className="w-3.5 h-3.5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-            </svg>
+          
+          {/* Wishlist (Heart) */}
+          <button 
+            className={`bg-white/95 dark:bg-zinc-900/95 text-gray-600 dark:text-zinc-300 hover:bg-[#fcb800] hover:text-white h-7.5 w-7.5 rounded-full flex items-center justify-center border border-white/20 dark:border-zinc-800/40 shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-all duration-300 delay-[80ms] cursor-pointer outline-none ${
+              isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-3 scale-75 pointer-events-none'
+            }`} 
+            title="Add to Wishlist"
+          >
+            <Heart className="w-3.5 h-3.5" />
+          </button>
+          
+          {/* Compare (GitCompare) */}
+          <button 
+            className={`bg-white/95 dark:bg-zinc-900/95 text-gray-600 dark:text-zinc-300 hover:bg-[#fcb800] hover:text-white h-7.5 w-7.5 rounded-full flex items-center justify-center border border-white/20 dark:border-zinc-800/40 shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-all duration-300 delay-[120ms] cursor-pointer outline-none ${
+              isHovered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-3 scale-75 pointer-events-none'
+            }`} 
+            title="Compare"
+          >
+            <GitCompare className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex flex-col gap-0.5 px-1 pb-1 z-10 relative flex-1">
-        <h3 className="font-medium text-[15px] leading-tight text-foreground line-clamp-1 cursor-pointer hover:text-primary transition-colors" title={title}>
+      <div className="flex flex-col gap-1 px-0.5 pb-0.5 z-10 relative flex-1">
+        {/* Prices */}
+        <div className="flex items-baseline mt-1 select-none">
+          <span className="text-[#669900] font-bold text-[15px]">${discountedPrice.toFixed(2)}</span>
+          {discount > 0 && (
+            <span className="text-gray-400 line-through text-[11px] ml-1.5 font-medium">${originalPrice.toFixed(2)}</span>
+          )}
+        </div>
+
+        {/* Sold By info */}
+        <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wide flex items-center mt-0.5 select-none">
+          <span className="shrink-0">Sold By:</span>
+          <span className="text-gray-600 dark:text-zinc-400 ml-1 hover:underline cursor-pointer truncate max-w-[95px]">{storeName}</span>
+          <span className="inline-flex items-center justify-center w-3 h-3 rounded-full bg-[#0066cc] text-white ml-1 shrink-0">
+            <Check className="w-2 h-2 stroke-[3.5]" />
+          </span>
+        </div>
+
+        {/* Title */}
+        <h3 className="font-semibold text-[13px] leading-snug text-[#0066cc] dark:text-blue-400 line-clamp-2 mt-0.5 hover:text-[#fcb800] dark:hover:text-[#fcb800] transition-colors cursor-pointer" title={title}>
           {title}
         </h3>
         
-        {shortDescription && (
-          <p className="text-[13px] text-muted-foreground line-clamp-2 leading-tight" title={shortDescription}>
-            {shortDescription}
-          </p>
-        )}
-        
-        {/* Rating (Hidden until hovered) */}
-        <div className={`flex gap-0.5 text-muted/30 transition-all duration-300 ${isHovered ? 'mt-0.5 opacity-100 max-h-10' : 'mt-0 opacity-0 max-h-0 overflow-hidden'}`}>
+        {/* Rating Stars */}
+        <div className="flex items-center gap-0.5 mt-0.5 select-none">
           {[1, 2, 3, 4, 5].map((star) => (
             <svg 
               key={star} 
-              className={`w-[13px] h-[13px] ${star <= rating ? 'text-primary fill-current' : 'fill-current'}`} 
+              className={`w-[11px] h-[11px] ${star <= rating ? 'text-[#fcb800] fill-current' : 'text-gray-200 fill-current dark:text-zinc-800'}`} 
               viewBox="0 0 24 24"
             >
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
             </svg>
           ))}
+          <span className="text-[10px] text-gray-400 ml-1.5 font-semibold">({rating >= 4.5 ? 10 : 9})</span>
         </div>
 
-        {/* Prices */}
-        <div className="flex items-center gap-1.5 mt-0.5">
-          <span className="text-primary font-bold text-[16px]">${discountedPrice.toFixed(2)}</span>
-          {discount > 0 && (
-            <span className="text-muted-foreground line-through text-[12px] font-medium">${originalPrice.toFixed(2)}</span>
-          )}
-        </div>
-
-        {/* Store Name (Hidden until hovered) */}
-        <div className={`flex items-center gap-1.5 cursor-pointer group/store transition-all duration-300 ${isHovered ? 'mt-1 opacity-100 max-h-10' : 'mt-0 opacity-0 max-h-0 overflow-hidden'}`}>
-          <div className="w-[18px] h-[18px] rounded-full bg-primary/10 flex items-center justify-center overflow-hidden shrink-0">
-            <svg className="w-2.5 h-2.5 text-primary" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
-            </svg>
+        {/* Inventory Progress Bar with Balance Sold/Available Labels */}
+        <div className="flex flex-col gap-1.5 mt-2.5 w-full select-none">
+          <div className="w-full h-1.5 bg-gray-100 dark:bg-zinc-850 rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-[#fcb800] rounded-full transition-all duration-500" 
+              style={{ width: `${soldPercentage}%` }}
+            />
           </div>
-          <span className="text-[13px] text-primary group-hover/store:underline">{storeName}</span>
-        </div>
-        
-        {/* Add to Cart Button (Hidden until hovered) */}
-        <div className={`mt-auto w-full transition-all duration-300 ${isHovered ? 'pt-2 opacity-100 max-h-20' : 'pt-0 opacity-0 max-h-0 overflow-hidden'}`}>
-          <button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-[14px] font-medium py-2 px-4 rounded-full transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md transform active:scale-95 group/btn">
-            <svg className="w-4 h-4 transition-transform group-hover/btn:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-            Add to Cart
-          </button>
+          <div className="flex justify-between items-center text-[10px] text-gray-400 font-bold">
+            <span>Sold: {soldCount}</span>
+            <span>Available: {totalStock - soldCount}</span>
+          </div>
         </div>
       </div>
     </div>
   );
 };
-

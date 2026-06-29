@@ -6,12 +6,65 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu, X } from "lucide-react";
+import { 
+  Menu, 
+  X,
+  Star,
+  Shirt,
+  Laptop,
+  Smartphone,
+  Utensils,
+  Lamp,
+  Sparkles,
+  Gem,
+  Armchair,
+  Gamepad2,
+  BookOpen,
+  Briefcase,
+  Gift,
+  Heart
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { allCategories } from "./nav-data";
 import { AnimatePresence, motion } from "framer-motion";
+
+function getCategoryIcon(title: string) {
+  switch (title) {
+    case "Fashion":
+    case "Kurtis & Dress":
+      return Shirt;
+    case "Electronics":
+      return Laptop;
+    case "Smartphones":
+      return Smartphone;
+    case "Groceries":
+      return Utensils;
+    case "Home & Kitchen":
+      return Lamp;
+    case "Beauty & Personal Care":
+      return Sparkles;
+    case "Jewelry":
+      return Gem;
+    case "Furniture":
+      return Armchair;
+    case "Kids & Toys":
+      return Gamepad2;
+    case "Books":
+      return BookOpen;
+    case "Bags & Luggage":
+      return Briefcase;
+    case "Gifts":
+      return Gift;
+    case "Wedding":
+      return Heart;
+    case "Top Brands":
+      return Star;
+    default:
+      return Star;
+  }
+}
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -41,66 +94,55 @@ export function MobileNav() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <button className="p-1 -ml-1">
-          <Menu className="h-6 w-6 text-foreground" />
+        <button className="h-9 w-9 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 transition-colors border-none outline-none cursor-pointer select-none">
+          <Menu className="h-5 w-5 text-black dark:text-white" />
           <span className="sr-only">Toggle menu</span>
         </button>
       </SheetTrigger>
-      {/* 
-        To force full width, we must override the default shadcn max-w-sm class 
-        We use !w-full to bypass data-[side=left] specificity.
-      */}
+      
       <SheetContent 
         side="left" 
-        className="!w-full !max-w-[100vw] sm:!max-w-[100vw] p-0 flex flex-col bg-background border-none !gap-0" 
+        className="!w-full !max-w-[100vw] sm:!max-w-[100vw] p-0 flex flex-col bg-white dark:bg-zinc-950 border-none !gap-0 select-none" 
         showCloseButton={false}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-background min-h-[52px]">
+        <div className="flex items-center justify-between px-4 py-2.5 border-b border-gray-100 dark:border-zinc-900 bg-white dark:bg-zinc-950 min-h-[56px]">
           <SheetTitle asChild>
             <div className="flex flex-col items-start mt-0.5">
-               <span className="text-[20px] font-extrabold text-foreground tracking-tight leading-none">
-                 Indian<span className="text-primary">Brand</span><span className="text-[10px] font-semibold">.in</span>
+               <span className="text-[20px] font-extrabold text-black dark:text-white tracking-tight leading-none">
+                 Indian<span className="text-white bg-black dark:bg-[#F7BA01] dark:text-black px-1.5 py-0.5 rounded ml-1">Brand</span><span className="text-[10px] font-bold ml-0.5">.in</span>
                </span>
-               <span className="text-[7.5px] text-muted-foreground font-medium tracking-wide mt-0.5">
+               <span className="text-[8px] text-black/50 dark:text-zinc-400 font-semibold tracking-wide mt-1">
                  Discover India. Buy India. Grow India.
                </span>
             </div>
           </SheetTitle>
-          <button onClick={() => setOpen(false)} className="w-8 h-8 shrink-0 flex items-center justify-center rounded-full bg-muted hover:bg-muted/80 transition-colors">
-            <X className="h-4 w-4 text-muted-foreground" strokeWidth={2} />
+          <button onClick={() => setOpen(false)} className="w-8 h-8 shrink-0 flex items-center justify-center rounded-full bg-gray-100 dark:bg-zinc-900 hover:bg-gray-200 dark:hover:bg-zinc-800 transition-colors cursor-pointer border-none outline-none">
+            <X className="h-4 w-4 text-gray-500 dark:text-zinc-400" strokeWidth={2.5} />
           </button>
         </div>
 
         {/* Content */}
         <div className="flex flex-1 overflow-hidden">
           {/* Left Sidebar */}
-          <div className="w-[85px] bg-muted/30 border-r border-border overflow-y-auto hide-scrollbar flex flex-col shrink-0">
+          <div className="w-[90px] bg-gray-50/50 dark:bg-zinc-900/30 border-r border-gray-100 dark:border-zinc-900 overflow-y-auto hide-scrollbar flex flex-col shrink-0">
             {/* Popular Tab */}
             <button
               onClick={() => setActiveTab("Popular")}
-              className={`w-full flex flex-col items-center justify-center py-3.5 px-1 border-b border-border/40 relative transition-colors ${
-                activeTab === "Popular" ? "bg-background" : "bg-transparent"
+              className={`w-full flex flex-col items-center justify-center py-4 px-1 border-b border-gray-100 dark:border-zinc-900/50 relative transition-colors border-none outline-none cursor-pointer ${
+                activeTab === "Popular" ? "bg-white dark:bg-zinc-950" : "bg-transparent"
               }`}
             >
               {activeTab === "Popular" && (
-                <motion.div layoutId="active-indicator" className="absolute left-0 top-0 bottom-0 w-1 bg-primary" />
+                <motion.div layoutId="active-indicator" className="absolute left-0 top-0 bottom-0 w-1 bg-[#F7BA01]" />
               )}
-              <div className={`relative w-[42px] h-[42px] rounded-full flex items-center justify-center mb-1.5 overflow-hidden transition-all duration-300 ${
-                activeTab === "Popular" ? "bg-slate-50/80 dark:bg-slate-900/40" : "bg-background border border-border/50 opacity-80"
-              }`}>
-                {activeTab === "Popular" && (
-                  <>
-                    <div className={`absolute top-0 right-0 w-6 h-6 rounded-full blur-[6px] -mr-1 -mt-1 bg-slate-300/40 dark:bg-slate-500/20 mix-blend-multiply dark:mix-blend-screen pointer-events-none z-0`} />
-                    <div className={`absolute bottom-0 left-0 w-4 h-4 rounded-full blur-[4px] -ml-0.5 -mb-0.5 bg-slate-300/40 dark:bg-slate-500/20 mix-blend-multiply dark:mix-blend-screen opacity-70 pointer-events-none z-0`} />
-                  </>
-                )}
-                <div className="relative w-[80%] h-[80%] z-10">
+              <div className={`relative w-[40px] h-[40px] rounded-full flex items-center justify-center mb-1.5 overflow-hidden transition-all duration-300 bg-black/5 dark:bg-white/5`}>
+                <div className="relative w-[70%] h-[70%] z-10">
                   <Image src="/category-icon/Top_Brands.png" alt="Popular" fill className="object-contain" unoptimized />
                 </div>
               </div>
-              <span className={`text-[10px] text-center leading-tight ${
-                activeTab === "Popular" ? "text-primary font-semibold" : "text-muted-foreground font-medium"
+              <span className={`text-[10px] text-center leading-tight tracking-wide font-extrabold ${
+                activeTab === "Popular" ? "text-[#F7BA01]" : "text-gray-500 dark:text-zinc-400"
               }`}>
                 Popular
               </span>
@@ -109,32 +151,25 @@ export function MobileNav() {
             {/* Dynamic Tabs */}
             {allCategories.map((tab) => {
               const isActive = activeTab === tab.title;
+              const TabIcon = getCategoryIcon(tab.title);
               return (
                 <button
                   key={tab.title}
                   onClick={() => setActiveTab(tab.title)}
-                  className={`w-full flex flex-col items-center justify-center py-3.5 px-1 border-b border-border/40 relative transition-colors ${
-                    isActive ? "bg-background" : "bg-transparent"
+                  className={`w-full flex flex-col items-center justify-center py-4 px-1 border-b border-gray-100 dark:border-zinc-900/50 relative transition-colors border-none outline-none cursor-pointer ${
+                    isActive ? "bg-white dark:bg-zinc-950" : "bg-transparent"
                   }`}
                 >
                   {isActive && (
-                    <motion.div layoutId="active-indicator" className="absolute left-0 top-0 bottom-0 w-1 bg-primary" />
+                    <motion.div layoutId="active-indicator" className="absolute left-0 top-0 bottom-0 w-1 bg-[#F7BA01]" />
                   )}
-                  <div className={`relative w-[42px] h-[42px] rounded-full flex items-center justify-center mb-1.5 overflow-hidden transition-all duration-300 ${
-                    isActive ? (tab.bgColor || "bg-primary/10") : "bg-background border border-border/50 opacity-80"
+                  <div className={`relative w-[40px] h-[40px] rounded-full flex items-center justify-center mb-1.5 overflow-hidden transition-all duration-300 ${
+                    isActive ? "bg-[#F7BA01]/10 dark:bg-[#F7BA01]/20" : "bg-black/5 dark:bg-white/5"
                   }`}>
-                    {isActive && tab.glowOrb && (
-                      <>
-                        <div className={`absolute top-0 right-0 w-6 h-6 rounded-full blur-[6px] -mr-1 -mt-1 ${tab.glowOrb} mix-blend-multiply dark:mix-blend-screen pointer-events-none z-0`} />
-                        <div className={`absolute bottom-0 left-0 w-4 h-4 rounded-full blur-[4px] -ml-0.5 -mb-0.5 ${tab.glowOrb} mix-blend-multiply dark:mix-blend-screen opacity-70 pointer-events-none z-0`} />
-                      </>
-                    )}
-                    <div className="relative w-[80%] h-[80%] z-10">
-                      <Image src={tab.imgUrl} alt={tab.title} fill className="object-contain" unoptimized />
-                    </div>
+                    <TabIcon className={`h-4.5 w-4.5 ${isActive ? "text-[#F7BA01]" : "text-gray-500 dark:text-zinc-400"}`} />
                   </div>
-                  <span className={`text-[10px] text-center leading-tight break-words px-0.5 ${
-                    isActive ? "text-primary font-semibold" : "text-muted-foreground font-medium"
+                  <span className={`text-[10px] text-center leading-tight tracking-wide font-extrabold break-words px-0.5 ${
+                    isActive ? "text-[#F7BA01]" : "text-gray-500 dark:text-zinc-400"
                   }`}>
                     {tab.title}
                   </span>
@@ -144,7 +179,7 @@ export function MobileNav() {
           </div>
 
           {/* Right Content Pane */}
-          <div className="flex-1 bg-background overflow-y-auto hide-scrollbar">
+          <div className="flex-1 bg-white dark:bg-zinc-950 overflow-y-auto hide-scrollbar">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
@@ -155,16 +190,15 @@ export function MobileNav() {
                 className="w-full h-full"
               >
                 {activeTab === "Popular" ? (
-                  <div className="px-3 pt-0 pb-6 m-0">
-                    <div className="mb-6 mt-0">
-                      <h3 className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest leading-none m-0 p-0 mb-5 flex items-center">
-                        <span className="flex-1 border-b border-border/60 mr-3"></span>
-                        POPULAR
-                        <span className="flex-1 border-b border-border/60 ml-3"></span>
+                  <div className="px-4 py-4 m-0 flex flex-col space-y-6">
+                    <div>
+                      <h3 className="text-[10px] font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-widest leading-none m-0 p-0 mb-4 flex items-center">
+                        <span className="flex-1 border-b border-gray-100 dark:border-zinc-900 mr-3"></span>
+                        Featured Brands
+                        <span className="flex-1 border-b border-gray-100 dark:border-zinc-900 ml-3"></span>
                       </h3>
                       
-                      <h4 className="text-[13px] font-bold text-foreground mb-4">Featured On IndianBrand</h4>
-                      <div className="grid grid-cols-3 gap-y-4 gap-x-2">
+                      <div className="grid grid-cols-2 gap-3">
                         {popularFeatured.map((item, idx) => (
                           <motion.div
                             key={idx}
@@ -172,19 +206,17 @@ export function MobileNav() {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: idx * 0.05 }}
                           >
-                            <Link href="#" onClick={() => setOpen(false)} className="flex flex-col items-center group">
-                              <div className={`relative w-[68px] h-[68px] rounded-full flex items-center justify-center mb-1.5 group-hover:scale-105 transition-all duration-300 overflow-hidden ${item.bgColor || 'bg-muted'}`}>
-                                {item.glowOrb && (
-                                  <>
-                                    <div className={`absolute top-0 right-0 w-8 h-8 rounded-full blur-[8px] -mr-2 -mt-2 ${item.glowOrb} mix-blend-multiply dark:mix-blend-screen pointer-events-none z-0`} />
-                                    <div className={`absolute bottom-0 left-0 w-6 h-6 rounded-full blur-[6px] -ml-1 -mb-1 ${item.glowOrb} mix-blend-multiply dark:mix-blend-screen opacity-70 pointer-events-none z-0`} />
-                                  </>
-                                )}
-                                <div className="relative w-[75%] h-[75%] z-10">
+                            <Link 
+                              href="#" 
+                              onClick={() => setOpen(false)} 
+                              className="flex flex-col items-center group bg-gray-50 dark:bg-zinc-900/60 border border-gray-100 dark:border-zinc-900/80 rounded-xl p-3 aspect-square justify-center text-center cursor-pointer hover:border-[#F7BA01]/60 transition-all duration-300"
+                            >
+                              <div className="relative w-12 h-12 rounded-full bg-white dark:bg-zinc-950 flex items-center justify-center mb-2 shadow-sm">
+                                <div className="relative w-[70%] h-[70%] z-10">
                                   <Image src={item.imgUrl} alt={item.title} fill className="object-contain" unoptimized />
                                 </div>
                               </div>
-                              <span className="text-[10px] text-center font-medium text-foreground/80 leading-tight">
+                              <span className="text-[10px] font-bold text-gray-700 dark:text-zinc-300 leading-tight line-clamp-2">
                                 {item.title}
                               </span>
                             </Link>
@@ -194,63 +226,75 @@ export function MobileNav() {
                     </div>
 
                     <div>
-                      <h4 className="text-[13px] font-bold text-foreground mb-4">All Popular</h4>
-                      <div className="grid grid-cols-3 gap-y-6 gap-x-2">
-                        {popularAll.map((item, idx) => (
-                          <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.1 + idx * 0.03 }}
-                          >
-                            <Link href="#" onClick={() => setOpen(false)} className="flex flex-col items-center group">
-                              <div className={`relative w-[60px] h-[60px] rounded-full flex items-center justify-center mb-1.5 group-hover:scale-105 transition-all duration-300 overflow-hidden ${item.bgColor || 'bg-muted'}`}>
-                                {item.glowOrb && (
-                                  <>
-                                    <div className={`absolute top-0 right-0 w-6 h-6 rounded-full blur-[6px] -mr-1 -mt-1 ${item.glowOrb} mix-blend-multiply dark:mix-blend-screen pointer-events-none z-0`} />
-                                    <div className={`absolute bottom-0 left-0 w-4 h-4 rounded-full blur-[4px] -ml-1 -mb-1 ${item.glowOrb} mix-blend-multiply dark:mix-blend-screen opacity-70 pointer-events-none z-0`} />
-                                  </>
-                                )}
-                                <div className="relative w-[75%] h-[75%] z-10">
-                                  <Image src={item.imgUrl} alt={item.title} fill className="object-contain" unoptimized />
-                                </div>
-                              </div>
-                              <span className="text-[10px] text-center font-medium text-foreground/80 leading-tight">
-                                {item.title}
-                              </span>
-                            </Link>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="px-3 pt-0 pb-6 m-0">
-                    {activeCategory && (
-                      <div className="mt-0">
-                        <h3 className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest leading-none m-0 p-0 mb-5 flex items-center">
-                            <span className="flex-1 border-b border-border/60 mr-3"></span>
-                            {activeCategory.title.toUpperCase()}
-                            <span className="flex-1 border-b border-border/60 ml-3"></span>
-                        </h3>
-                        <div className="grid grid-cols-3 gap-y-6 gap-x-2">
-                          {activeCategory.subCategories.map((sub, idx) => (
+                      <h3 className="text-[10px] font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-widest leading-none m-0 p-0 mb-4 flex items-center">
+                        <span className="flex-1 border-b border-gray-100 dark:border-zinc-900 mr-3"></span>
+                        Popular Categories
+                        <span className="flex-1 border-b border-gray-100 dark:border-zinc-900 ml-3"></span>
+                      </h3>
+                      
+                      <div className="grid grid-cols-2 gap-3">
+                        {popularAll.map((item, idx) => {
+                          const IconComp = getCategoryIcon(item.title);
+                          return (
                             <motion.div
                               key={idx}
                               initial={{ opacity: 0, scale: 0.9 }}
                               animate={{ opacity: 1, scale: 1 }}
-                              transition={{ delay: idx * 0.03 }}
+                              transition={{ delay: 0.1 + idx * 0.03 }}
                             >
-                              <Link href={`${activeCategory.href}/${sub.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => setOpen(false)} className="flex flex-col items-center group">
-                                <div className="relative w-12 h-12 flex items-center justify-center mb-1 overflow-hidden">
-                                  <Image src={activeCategory.imgUrl} alt={sub} fill className="object-cover rounded-md" unoptimized />
+                              <Link 
+                                href="#" 
+                                onClick={() => setOpen(false)} 
+                                className="flex flex-col items-center group bg-gray-50 dark:bg-zinc-900/60 border border-gray-100 dark:border-zinc-900/80 rounded-xl p-3 aspect-square justify-center text-center cursor-pointer hover:border-[#F7BA01]/60 transition-all duration-300"
+                              >
+                                <div className="w-10 h-10 rounded-full bg-[#F7BA01]/10 dark:bg-[#F7BA01]/20 flex items-center justify-center mb-2">
+                                  <IconComp className="h-4.5 w-4.5 text-[#F7BA01]" />
                                 </div>
-                                <span className="text-[10px] text-center font-medium text-foreground/80 leading-tight">
-                                  {sub}
+                                <span className="text-[10px] font-bold text-gray-700 dark:text-zinc-300 leading-tight line-clamp-2">
+                                  {item.title}
                                 </span>
                               </Link>
                             </motion.div>
-                          ))}
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="px-4 py-4 m-0">
+                    {activeCategory && (
+                      <div className="mt-0">
+                        <h3 className="text-[10px] font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-widest leading-none m-0 p-0 mb-4 flex items-center">
+                            <span className="flex-1 border-b border-gray-100 dark:border-zinc-900 mr-3"></span>
+                            {activeCategory.title}
+                            <span className="flex-1 border-b border-gray-100 dark:border-zinc-900 ml-3"></span>
+                        </h3>
+                        
+                        <div className="grid grid-cols-2 gap-3">
+                          {activeCategory.subCategories.map((sub, idx) => {
+                            const TabIcon = getCategoryIcon(activeCategory.title);
+                            return (
+                              <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: idx * 0.03 }}
+                              >
+                                <Link 
+                                  href={`${activeCategory.href}/${sub.toLowerCase().replace(/\s+/g, '-')}`} 
+                                  onClick={() => setOpen(false)} 
+                                  className="flex flex-col items-center group bg-gray-50 dark:bg-zinc-900/60 border border-gray-100 dark:border-zinc-900/80 rounded-xl p-3 aspect-square justify-center text-center cursor-pointer hover:border-[#F7BA01]/60 transition-all duration-300"
+                                >
+                                  <div className="w-10 h-10 rounded-full bg-[#F7BA01]/10 dark:bg-[#F7BA01]/20 flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-105">
+                                    <TabIcon className="h-4.5 w-4.5 text-[#F7BA01]" />
+                                  </div>
+                                  <span className="text-[10.5px] font-bold text-gray-700 dark:text-zinc-300 leading-tight mt-1 line-clamp-2 group-hover:text-[#F7BA01] transition-colors">
+                                    {sub}
+                                  </span>
+                                </Link>
+                              </motion.div>
+                            );
+                          })}
                         </div>
                       </div>
                     )}
